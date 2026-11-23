@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SpendWise | Smart money management</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="welcome" class="welcome">
+  <section class="intro">
+    <div class="brand"><div class="logo">S</div><span>SpendWise</span></div>
+    <div class="tag">Your money. Your direction.</div>
+    <h1>Take control of<br><span>your money.</span></h1>
+    <p>Track spending, understand your habits, and build better financial decisions — all in one simple workspace.</p>
+    <div class="features"><span class="feature">◈ Expense tracking</span><span class="feature">↗ Financial insights</span><span class="feature">◎ Budget planning</span></div>
+  </section>
+  <section class="login-card">
+    <h2>Welcome back</h2><p class="sub">Sign in to your SpendWise account</p>
+    <div class="social"><button class="btn google" onclick="oauthDemo('Google')"><b>G</b> Continue with Google</button><button class="btn microsoft" onclick="oauthDemo('Microsoft')"><span class="msmark"><i></i><i></i><i></i><i></i></span> Microsoft</button></div>
+    <div class="divider">OR SIGN IN WITH EMAIL OR USERNAME</div>
+    <form id="loginForm">
+      <div class="field"><label for="loginid">Email or username</label><input id="loginid" autocomplete="username" placeholder="you@example.com or username" required></div>
+      <div class="field"><label for="password">Password</label><div class="password-wrap"><input id="password" type="password" autocomplete="current-password" placeholder="Enter your password" required><button class="toggle" type="button" onclick="togglePassword()">Show</button></div></div>
+      <div class="formrow"><label class="remember"><input type="checkbox" id="remember"> Remember me</label><a onclick="forgotDemo()">Forgot password?</a></div>
+      <div class="message" id="loginMsg"></div><button class="primary" type="submit">Sign in →</button>
+    </form>
+    <p class="signup">New to SpendWise? <a onclick="signupDemo()">Create an account</a></p>
+    <p class="notice">Demo sign-in: enter any non-empty email/username and password.<br>Authentication providers are UI demos, not connected services.</p>
+  </section>
+</div>
+<div id="app" class="app hidden">
+  <aside class="sidebar"><div class="brand"><div class="logo">S</div><span class="brandtext">SpendWise</span></div><div class="navtitle">WORKSPACE</div>
+    <button class="navbtn active" data-section="overview" onclick="showSection('overview',this)"><span>▦</span><span>Overview</span></button><button class="navbtn" data-section="income" onclick="showSection('income',this)"><span>↗</span><span>Income</span></button><button class="navbtn" data-section="expenses" onclick="showSection('expenses',this)"><span>↘</span><span>Expenses</span></button><button class="navbtn" data-section="budgets" onclick="showSection('budgets',this)"><span>◉</span><span>Budgets</span></button><button class="navbtn" data-section="transactions" onclick="showSection('transactions',this)"><span>≡</span><span>Transactions</span></button><button class="navbtn" data-section="analytics" onclick="showSection('analytics',this)"><span>▥</span><span>Analytics</span></button><div class="sidebottom"><div class="navtitle">ACCOUNT</div><button class="navbtn" onclick="logout()"><span>⇥</span><span>Log out</span></button></div>
+  </aside>
+  <main class="main">
+    <div class="topbar"><div><h1 id="pageTitle">Overview</h1><p id="greeting">Here's your financial snapshot.</p></div><div class="user"><div class="avatar" id="avatar">U</div><div><b id="username">User</b><div class="txsub">Personal account</div></div></div></div>
+    <section class="section active" id="overview">
+      <div class="cards"><div class="stat"><div class="label">Total balance</div><div class="value" id="balance">$12,450.00</div><div class="trend">↑ 8.4% this month</div></div><div class="stat"><div class="label">Income this month</div><div class="value" id="incomeTotal">$4,850.00</div><div class="trend">Money received</div></div><div class="stat"><div class="label">Expenses this month</div><div class="value" id="expenseTotal">$2,180.00</div><div class="trend down">Spending tracked</div></div><div class="stat"><div class="label">Savings</div><div class="value" id="savings">$2,670.00</div><div class="trend">Income minus expenses</div></div></div>
+      <div class="contentgrid"><div class="panel"><h3>Income vs. expenses</h3><div class="bars" id="chart"><div class="barcol"><div class="bar" style="height:60%"></div><small>Jan</small></div><div class="barcol"><div class="bar" style="height:77%"></div><small>Feb</small></div><div class="barcol"><div class="bar" style="height:48%"></div><small>Mar</small></div><div class="barcol"><div class="bar" style="height:83%"></div><small>Apr</small></div><div class="barcol"><div class="bar" style="height:65%"></div><small>May</small></div><div class="barcol"><div class="bar" style="height:90%"></div><small>Jun</small></div></div><div class="txsub" style="margin-top:12px">Illustrative activity overview</div></div><div class="panel"><h3>Monthly budget</h3><div class="budgetline"><span>Monthly spending</span><b>$2,180 / $3,000</b></div><div class="progress"><span style="width:73%"></span></div><div class="budgetline"><span>Budget used</span><span>73%</span></div><div style="margin-top:22px;color:var(--green);font-weight:650">You're within your budget.</div></div></div>
+      <div class="panel transactions"><h3>Recent transactions <button class="addbtn" style="float:right" onclick="openModal()">+ Add transaction</button></h3><div id="txList"></div></div>
+    </section>
+    <section class="section" id="income"><div class="panel simplepanel"><h3>Income</h3><p class="sub">Keep track of money received.</p><button class="addbtn" onclick="openModal('income')">+ Add income</button><div id="incomeList"></div></div></section>
+    <section class="section" id="expenses"><div class="panel simplepanel"><h3>Expenses</h3><p class="sub">Record purchases and everyday costs.</p><button class="addbtn" onclick="openModal('expense')">+ Add expense</button><div id="expenseList"></div></div></section>
+    <section class="section" id="budgets"><div class="panel simplepanel"><h3>Budgets</h3><p class="sub">Sample monthly budget</p><div class="budgetline"><span>Overall budget</span><b>$2,180 / $3,000</b></div><div class="progress"><span style="width:73%"></span></div><p class="sub">Budget tracking in this demo uses sample values.</p></div></section>
+    <section class="section" id="transactions"><div class="panel simplepanel"><h3>All transactions</h3><div id="allTx"></div></div></section>
+    <section class="section" id="analytics"><div class="panel simplepanel"><h3>Analytics</h3><p>Sample financial analytics for this demo. Add transactions to see them reflected in your transaction lists.</p><div class="cards"><div class="stat"><div class="label">Income records</div><div class="value" id="incomeCount">0</div></div><div class="stat"><div class="label">Expense records</div><div class="value" id="expenseCount">0</div></div></div></div></section>
+  </main>
+</div>
+<div id="modal" class="modalback hidden"><div class="modal"><h3>Add transaction</h3><form id="txForm"><div class="field"><label>Type</label><select id="txType"><option value="expense">Expense</option><option value="income">Income</option></select></div><div class="field"><label>Description</label><input id="txName" placeholder="e.g. Groceries" required></div><div class="field"><label>Amount (USD)</label><input id="txAmount" type="number" min="0.01" step="0.01" placeholder="0.00" required></div><div class="field"><label>Category</label><input id="txCategory" placeholder="e.g. Food, Salary"></div><div class="modalactions"><button type="button" class="btn" onclick="closeModal()">Cancel</button><button type="submit" class="primary" style="margin:0">Save transaction</button></div></form></div></div>
+<script src="app.js" defer></script>
+</body>
+</html>
